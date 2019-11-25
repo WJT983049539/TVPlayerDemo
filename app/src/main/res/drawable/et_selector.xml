@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true" android:drawable="@drawable/et_shape"></item>//得到焦点时引用et_shape外形资源
+    <item android:state_focused="false" android:drawable="@drawable/et_shape2"></item>//失去焦点时引用et_shape2外形资源
+</selector>

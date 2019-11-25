@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0000">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:text="设置"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:background="#81A39D9D"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9.2"
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="30dp"
+            android:text="UDRMServiceIp"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+
+        <EditText
+            android:id="@+id/ed_ip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_weight="7"
+            android:background="@drawable/et_selector"
+            android:focusable="true"
+            android:hint="请输入UdrmService地址"
+            android:text="https://10.2.40.94:443/udrmrsa/udrmGetLicense"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="30dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="30dp"
+                    android:textSize="20sp"
+                    android:text="运营商设置"
+                    android:textColor="#ffffff" />
+
+                <EditText
+                    android:id="@+id/ed_yunyingshang"
+                    android:layout_width="0dp"
+                    android:layout_weight="7"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入运营商地址"
+                    android:textColor="#fff"
+                    android:focusable="true"
+                    android:text="unitend"
+                    android:layout_marginLeft="45dp"
+                    android:background="@drawable/et_selector"
+                    />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:text="DURM服务开关"
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"
+                android:paddingLeft="30dp"
+                android:textSize="20sp"
+                />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/tx_selector"
+                android:gravity="center"
+                >
+
+                <Switch
+                    android:id="@+id/switchx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:focusable="true"
+                    android:thumb="@drawable/thumb"
+                    android:track="@drawable/track"
+                    android:background="@drawable/switch_bg"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/tx_selector"
+                >
+            </LinearLayout>
+        </LinearLayout>
+            <TextView
+                android:id="@+id/clear"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="清除缓存"
+                android:paddingLeft="30dp"
+                android:textColor="#ffffff"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:focusable="true"
+                android:textSize="20sp"
+                android:background="@drawable/tx_selector"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:text="关于"
+                    android:textColor="#ffffff"
+                    android:paddingLeft="30dp"
+                    android:textSize="20sp"
+                    android:gravity="center_vertical"
+                    />
+                <TextView
+                    android:id="@+id/version"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:textColor="#ffffff"
+
+                    />
+            </LinearLayout>
+
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            />
+
+</LinearLayout>
+
+</LinearLayout>
