@@ -46,7 +46,7 @@ public class SetActivity extends AppCompatActivity {
         version=findViewById(R.id.version);
         UDRM udrm=new UDRM(this);
         String versioncode=udrm.getUdrmVersion();
-        version.setText(versioncode);
+        version.setText("UDRM版本号:"+versioncode);
         SharedPreferences preferences = getSharedPreferences("TVset", Context.MODE_PRIVATE);
         final SharedPreferences.Editor edit= preferences.edit();
         Boolean drmswitch=preferences.getBoolean("DrmSwitch",true);
