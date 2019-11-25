@@ -117,20 +117,22 @@ public class MainActivity extends AppCompatActivity {
             player.getStopView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    player.getThunbView().setVisibility(View.VISIBLE);
                     player.getCurrentPlayer().release();
-//                    player.getThunbView().setVisibility(View.VISIBLE);
+                    player.getThunbView().bringToFront();//封面放到最上面
+//
 
                 }
             });
         }
 
 
-        ImageView imageView= (ImageView) player.getThunbView();
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
-        requestOptions.fitCenter();
-
-        Glide.with(this).load(R.mipmap.thumb).apply(requestOptions).into(imageView);
+//        ImageView imageView= (ImageView) player.getThunbView();
+//        RequestOptions requestOptions = new RequestOptions();
+//        requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
+//        requestOptions.fitCenter();
+//        Glide.with(this).load(R.mipmap.thumb).apply(requestOptions).into(imageView);
 //        player.setThumbImageView(imageView);
         player.setVideoAllCallBack(new VideoAllCallBack() {
             @Override
@@ -141,6 +143,9 @@ public class MainActivity extends AppCompatActivity {
 //                    textView.setText("准备播放");
 //                };
                 player.getThunbView().setVisibility(View.GONE);
+
+
+
                 LogUtils.localtotal=0;
             }
 
@@ -164,12 +169,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClickStop(String url, Object... objects) {
                 LogUtils.i("onClickStop");
+                //暂停
 //                GlobalToast.show("onClickStop", Toast.LENGTH_LONG);
             }
 
             @Override
             public void onClickStopFullscreen(String url, Object... objects) {
                 LogUtils.i("onClickStopFullscreen");
+
             }
 
             @Override
@@ -195,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAutoComplete(String url, Object... objects) {
                 LogUtils.i("onAutoComplete");
-
+                LogUtils.ToastShow(MainActivity.this,"onAutoComplete!!!");
             }
 
             @Override
@@ -238,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPlayError(String url, Object... objects) {
                 LogUtils.i("onPlayError");
-
+                LogUtils.ToastShow(MainActivity.this,"播放出错!!!");
 
 //                LogUtils.ToastShow(SingPlayerActivity.this,"播放失败,请检查播放链接或网络状况!");
 ////                Toast.makeText(SingPlayerActivity.this,"播放失败,请检查播放链接",Toast.LENGTH_LONG).show();
@@ -503,6 +510,7 @@ public class MainActivity extends AppCompatActivity {
                 /**
                  * 判断播放权限
                  */
+
                 judgePermiss(playUrl);
             }else{
 //                zhuanhuanUrl();
@@ -534,6 +542,8 @@ public class MainActivity extends AppCompatActivity {
      * 检查权限
      */
     private void judgePermiss(String url) {
+        player.getStatuView().bringToFront();//状态view放到最上面
+
         TextView textView= (TextView) player.getStatuView();
         if(textView!=null){
             textView.setText("开始检测权限...");
