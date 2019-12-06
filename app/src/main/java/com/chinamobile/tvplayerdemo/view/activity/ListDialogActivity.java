@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.Display;
-import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,16 +20,13 @@ import com.chinamobile.tvplayerdemo.tools.DensityUtil;
 import com.chinamobile.tvplayerdemo.tools.GlobalToast;
 import com.chinamobile.tvplayerdemo.tools.LogUtils;
 import com.chinamobile.tvplayerdemo.view.customview.CustomEidtDialog;
-import com.chinamobile.tvplayerdemo.view.customview.FocusKeepRecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -191,7 +185,35 @@ public class ListDialogActivity extends AppCompatActivity {
 
             }
         });
+        tvListAdapter.setLongClickListener(new TvListAdapter.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(final int position, View view) {
 
+
+                PopupMenu popupMenu = new PopupMenu(ListDialogActivity.this, view);
+                popupMenu.getMenuInflater().inflate(R.menu.menu3, popupMenu.getMenu());
+
+                //弹出式菜单的菜单项点击事件
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.action_delete) {
+                            ACache aCache=ACache.get(ListDialogActivity.this);
+                            urlListdate.remove(position);
+                            aCache.put("Videolist",urlListdate);//把数据视频列表数据保存到缓存中
+                            tvListAdapter.notifyDataSetChanged();
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+
+                return true;
+            }
+
+
+        });
         tvListAdapter.setOnItemClickListen(new TvListAdapter.OnItemClickListen() {
             //url列表点击事件
             @Override

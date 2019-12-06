@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-
+        player.getThumbImageViewLayout().setVisibility(View.GONE);
 //        ImageView imageView= (ImageView) player.getThunbView();
 //        RequestOptions requestOptions = new RequestOptions();
 //        requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
@@ -246,7 +246,18 @@ public class MainActivity extends AppCompatActivity {
             public void onPlayError(String url, Object... objects) {
                 LogUtils.i("onPlayError");
                 LogUtils.ToastShow(MainActivity.this,"播放出错!!!");
+                TextView textView= (TextView) player.getStatuView();
+                if(player.getStatuView().getVisibility()==View.GONE){
+                    player.getStatuView().setVisibility(View.VISIBLE);
+                }
+                if(textView!=null) {
+                    textView.setText("播放出错,请检查视频或网络！");
+                    Resources resource = (Resources) getBaseContext().getResources();
+                    ColorStateList csl = (ColorStateList) resource.getColorStateList(R.color.red);
+                    textView.setTextColor(csl);
+                    player.getStatuView().bringToFront();//错误信息页放到最上面
 
+                }
 //                LogUtils.ToastShow(SingPlayerActivity.this,"播放失败,请检查播放链接或网络状况!");
 ////                Toast.makeText(SingPlayerActivity.this,"播放失败,请检查播放链接",Toast.LENGTH_LONG).show();
 //                //到这里了
@@ -433,32 +444,41 @@ public class MainActivity extends AppCompatActivity {
              case KeyEvent.KEYCODE_DPAD_LEFT: //向左键
                  if(isLongPressKey){
                      isLongPressKey=false;//长按结束
+
+                     //由于每次都会多30/1所以减一点
+                     int total= (int) GSYVideoManager.instance().getDuration();//总进度
+                     String totalTime = CommonUtil.stringForTime(total);
+                     String seekTime = CommonUtil.stringForTime( LogUtils.localtotal );
+                     LogUtils.localtotal += total/40;
+
+                     player.seekTo(LogUtils.localtotal );
                      if(progressDoalogTimer!=null){
                          progressDoalogTimer.cancel();
                          progressDoalogTimer=null;
                          player.dissprogrssDialog2();
                      }
-//                     GlobalToast.show("进入到长按抬起事件，总长度为"+LogUtils.localtotal, Toast.LENGTH_LONG);
-//                     GSYVideoManager.instance().seekTo( LogUtils.localtotal );
-                     player.seekTo(LogUtils.localtotal );
                  }
-                 player.dissprogrssDialog2();
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:  //向右键
                 //这里得到快进到的进度，并播放
 
                 if(isLongPressKey){
+
+                    //由于每次都会少30/1所以加一点
+                    int total= (int) GSYVideoManager.instance().getDuration();//总进度
+                    String totalTime = CommonUtil.stringForTime(total);
+                    String seekTime = CommonUtil.stringForTime( LogUtils.localtotal );
+                    LogUtils.localtotal -= total/40;
+
+
+                    player.seekTo(LogUtils.localtotal );
                     isLongPressKey=false;//长按结束
                     if(progressDoalogTimer!=null){
                         progressDoalogTimer.cancel();
                         progressDoalogTimer=null;
                         player.dissprogrssDialog2();
                     }
-//                    GlobalToast.show("进入到长按抬起事件，总长度为"+LogUtils.localtotal, Toast.LENGTH_LONG);
-//                    GSYVideoManager.instance().seekTo( LogUtils.localtotal );
-                    player.seekTo(LogUtils.localtotal );
                 }
-                player.dissprogrssDialog2();
                 break;
         }
         return super.onKeyUp(keyCode, event);
@@ -492,10 +512,8 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==1&&resultCode==2){
-            player.release();
-//            player=findViewById(R.id.player);
-            TextView textView= (TextView) player.getStatuView();
-            textView.setVisibility(View.VISIBLE);
+            player.setViSIBLE(View.VISIBLE);
+            player.getStatuView().bringToFront();//放到最前面
             playUrlbean playUrlbean= (com.chinamobile.tvplayerdemo.model.playUrlbean) data.getSerializableExtra("url");
             playUrl=playUrlbean.getPlayurl();
             contentID=playUrlbean.getContentId();
@@ -527,12 +545,16 @@ public class MainActivity extends AppCompatActivity {
      * 检测权限失败
      */
     public void checkPremissFail(String msg){
+
         TextView textView= (TextView) player.getStatuView();
         if(textView!=null){
             textView.setText(msg);
             Resources resource = (Resources) getBaseContext().getResources();
             ColorStateList csl = (ColorStateList) resource.getColorStateList(R.color.red);
             textView.setTextColor(csl);
+            player.getStatuView().bringToFront();//错误信息页放到最上面
+            player.release();//停止
+            player.getThunbView().setVisibility(View.VISIBLE);
         };
 
 
@@ -707,7 +729,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        LogUtils.i("onStop");
+        if(player!=null) {
+            player.getCurrentPlayer().release();
+        }
+    }
+
+    @Override
     protected void onPause() {
+        LogUtils.i("onPause");
         super.onPause();
         if(player!=null){
             player.getCurrentPlayer().onVideoPause();
@@ -716,6 +748,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         if(player!=null){
+            LogUtils.i("onresume");
         player.getCurrentPlayer().onVideoResume(false);
         }
         super.onResume();
@@ -723,6 +756,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        LogUtils.i("onDestroy");
         super.onDestroy();
         if(player!=null) {
             player.getCurrentPlayer().release();

@@ -384,7 +384,7 @@ public class LogUtils {
             textView.setText(message);
             //y,距离底部的距离
             toast.setGravity(Gravity.BOTTOM,0,DensityUtil.dip2px(context,500));
-            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(layout);
             toast.show();
     }

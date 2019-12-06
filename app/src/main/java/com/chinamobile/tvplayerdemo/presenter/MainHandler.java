@@ -45,7 +45,7 @@ public class MainHandler extends Handler {
             case 0x001:
                 if(MainActivity.isLongPressKey){//是长按事件
                     float x= (float) msg.obj;
-                    if(x>0){//右滑快进
+                    if(x>0){ //右滑快进
                         if( LogUtils.localtotal ==0){
                             LogUtils.localtotal=100;//给个初始值
 //                        LogUtils.localtotal = (int) GSYVideoManager.instance().getCurrentPosition();//当前进度
@@ -54,20 +54,23 @@ public class MainHandler extends Handler {
                         int total= (int) GSYVideoManager.instance().getDuration();//总进度
                         String totalTime = CommonUtil.stringForTime(total);
                         String seekTime = CommonUtil.stringForTime( LogUtils.localtotal );
-                        LogUtils.localtotal += total/30;
+                        LogUtils.localtotal += total/40;
 //                        GlobalToast.show("快进增加"+total/35, Toast.LENGTH_LONG);
                         if( LogUtils.localtotal <total){
                             player.showProgressDialog2(x,seekTime, LogUtils.localtotal ,totalTime,total);
+                        }else{
+                            LogUtils.localtotal=total;
+                            player.showProgressDialog2(x,seekTime,  LogUtils.localtotal ,totalTime,total);
                         }
 
-                    }else if(x<0){//左滑快退
+                    }else if(x<0){ //左滑快退
 
                         int total= (int) GSYVideoManager.instance().getDuration();//总进度
                         String totalTime = CommonUtil.stringForTime(total);
                         String seekTime = CommonUtil.stringForTime( LogUtils.localtotal );
                         if( LogUtils.localtotal >0){
                             player.showProgressDialog2(x,seekTime, LogUtils.localtotal ,totalTime,total);
-                            LogUtils.localtotal -= total/30;
+                            LogUtils.localtotal -= total/40;
 //                            GlobalToast.show("快退减少"+total/35, Toast.LENGTH_LONG);
                         }else{
                             LogUtils.localtotal=0;
@@ -107,8 +110,8 @@ public class MainHandler extends Handler {
             case DRM_PROC_STATUS_CHECK_FAILED:
                 int ret = msg.arg1;
                 LogUtils.i(" \"检测权限失败,erroNO. = \" + ret + \".\\n\"");
-                mainActivity.checkPremissFail("检测权限失败");
-                LogUtils.ToastShow(mainActivity,"检测权限失败!"+ret);
+                mainActivity.checkPremissFail("检测权限失败,解密服务器没有权限解密播放这个视频");
+                LogUtils.ToastShow(mainActivity,"检测权限失败,解密服务器没有权限解密播放这个视频!"+ret);
 //                singPlayerActivity.zhuanhuanUrl();
                 break;
             case DRM_PROC_STATUS_CHECK_SUCCESS:

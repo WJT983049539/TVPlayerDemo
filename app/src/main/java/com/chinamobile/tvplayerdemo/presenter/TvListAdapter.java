@@ -35,20 +35,14 @@ public class TvListAdapter  extends RecyclerView.Adapter<TvListAdapter.MyHolder>
 
         holder.item_tv_url.setText(urlList.get(position).getPlayurl());
 
-//        holder.item_tv_url.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if(hasFocus){
-//                    holder.item_tv_url.setTextColor(Color.parseColor("#ffffff"));
-//                    holder.item_tv_url.setFocusableInTouchMode(true);
-//                    holder.item_tv_url.setFocusable(true);
-//                    holder.item_tv_url.requestFocus();
-//                }else{
-//                    holder.item_tv_url.setTextColor(Color.parseColor("#000000"));
-//                }
-//            }
-//        });
-
+        if (mLongClickListener != null) {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    return mLongClickListener.onLongClick(position,view);
+                }
+            });
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +77,7 @@ public class TvListAdapter  extends RecyclerView.Adapter<TvListAdapter.MyHolder>
             });
         }
     }
-
+    //点击事件
     public interface OnItemClickListen{
         void item(int item,View view);
     }
@@ -91,7 +85,12 @@ public class TvListAdapter  extends RecyclerView.Adapter<TvListAdapter.MyHolder>
     public void setOnItemClickListen(OnItemClickListen onItemClickListen){
         this.onItemClickListen=onItemClickListen;
     }
+    private OnLongClickListener mLongClickListener;
 
-
-
+    public interface OnLongClickListener{
+        boolean onLongClick(int position,View view);
+    }
+    public void setLongClickListener(OnLongClickListener longClickListener) {
+        mLongClickListener = longClickListener;
+    }
 }

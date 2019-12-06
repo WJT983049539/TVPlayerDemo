@@ -10,20 +10,21 @@
         android:src="@mipmap/thumb"
         android:visibility="gone"
         />
+    <TextView
+        android:id="@+id/playstaus"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|top"
+        android:paddingTop="50dp"
+        android:textColor="#FFEB3B"
+        android:textSize="15sp" />
     <FrameLayout
         android:id="@+id/surface_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <TextView
-            android:id="@+id/playstaus"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center|top"
-            android:paddingTop="50dp"
-            android:textColor="#FFEB3B"
-            android:textSize="15sp" />
+
 
     </FrameLayout>
 
