@@ -50,6 +50,10 @@ public class SetActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("TVset", Context.MODE_PRIVATE);
         final SharedPreferences.Editor edit= preferences.edit();
         Boolean drmswitch=preferences.getBoolean("DrmSwitch",true);
+        String udrmserviceip=preferences.getString("udrmserviceurl","");
+        ed_ip.setText(udrmserviceip);
+        String uremserviceyys=preferences.getString("uremserviceyys","");
+        ed_yunyingshang.setText(uremserviceyys);
         switchx.setChecked(drmswitch);
         switchx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

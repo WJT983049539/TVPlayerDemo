@@ -656,9 +656,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return drmInfo;
     }
-
-
-
     /***
      * udrm监听事件
      */
