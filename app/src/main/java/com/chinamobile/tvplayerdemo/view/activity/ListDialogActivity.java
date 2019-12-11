@@ -76,14 +76,14 @@ public class ListDialogActivity extends AppCompatActivity {
             urlListdate=new ArrayList<playUrlbean>();
             //暂时默认添加几条数据
 //        urlList.clear();
-            playUrlbean playUrlbean=new playUrlbean();
-            playUrlbean.setPlayurl("http://10.2.40.100:10080/vod/spiderman/enc/spiderman.m3u8");
-            playUrlbean.setContentId("397e26e5-e320-4aab-8cca-dfecb292e2ac");
-            urlListdate.add(playUrlbean);
-            playUrlbean videoPathBean2=new playUrlbean();
-            videoPathBean2.setPlayurl("http://10.2.40.100:10080/vod/yqcr2/yqcr2.m3u8");
-            videoPathBean2.setContentId("20191052");
-            urlListdate.add(videoPathBean2);
+//            playUrlbean playUrlbean=new playUrlbean();
+//            playUrlbean.setPlayurl("http://10.2.40.100:10080/vod/spiderman/enc/spiderman.m3u8");
+//            playUrlbean.setContentId("397e26e5-e320-4aab-8cca-dfecb292e2ac");
+//            urlListdate.add(playUrlbean);
+//            playUrlbean videoPathBean2=new playUrlbean();
+//            videoPathBean2.setPlayurl("http://10.2.40.100:10080/vod/yqcr2/yqcr2.m3u8");
+//            videoPathBean2.setContentId("20191052");
+//            urlListdate.add(videoPathBean2);
         }else {
             urlListdate=new ArrayList<playUrlbean>(new HashSet<>(arrayList));
         }

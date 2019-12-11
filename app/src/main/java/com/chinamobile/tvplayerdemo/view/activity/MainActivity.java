@@ -512,6 +512,13 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==1&&resultCode==2){
+            //播放中或者准备中
+            if(player.getCurrentState()==CURRENT_STATE_PREPAREING||player.getCurrentState()==CURRENT_STATE_PLAYING){
+                player.release();
+            }
+            if(mUDRM!=null){
+                mUDRM.stopPlayerAgent();
+            }
             player.setViSIBLE(View.VISIBLE);
             player.getStatuView().bringToFront();//放到最前面
             playUrlbean playUrlbean= (com.chinamobile.tvplayerdemo.model.playUrlbean) data.getSerializableExtra("url");
@@ -652,7 +659,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-
         }
         return drmInfo;
     }
